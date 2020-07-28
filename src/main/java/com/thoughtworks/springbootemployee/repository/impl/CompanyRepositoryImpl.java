@@ -43,6 +43,7 @@ public class CompanyRepositoryImpl implements CompanyRepository {
                 }
             }
             if(!isEqual){
+                oldCompany.setEmployeesNumber(oldCompany.getEmployeesNumber()+1);
                 oldCompany.getEmployees().add(newEmployee);
             }
         }
