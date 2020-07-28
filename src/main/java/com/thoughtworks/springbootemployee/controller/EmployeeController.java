@@ -13,7 +13,7 @@ import java.util.List;
 public class EmployeeController {
 
     @Autowired
-    EmployeeRepository employeeRepository;
+    private EmployeeRepository employeeRepository;
 
     @PostMapping()
     public void addEmployee(@RequestBody Employee employee){
@@ -21,7 +21,6 @@ public class EmployeeController {
     }
 
     @PutMapping()
-
     public void updateEmployee(@RequestBody Employee employee){
         employeeRepository.updateEmployee(employee);
     }
