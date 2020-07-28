@@ -21,13 +21,14 @@ public class CompanyController {
         companyRepository.addCompany(company);
     }
 
-    @PutMapping()
-    public void updateCompany(@RequestBody Company company) {
+    @PutMapping("/{companyId}")
+    public void updateCompany(@PathVariable Integer companyId, @RequestBody Company company) {
+        company.setId(companyId);
         companyRepository.updateCompany(company);
     }
 
-    @DeleteMapping()
-    public void deleteEmployeesOfCompany(Integer companyId) {
+    @DeleteMapping("/{companyId}")
+    public void deleteEmployeesOfCompany(@PathVariable Integer companyId) {
         companyRepository.deleteEmployeesOfCompany(companyId);
     }
 

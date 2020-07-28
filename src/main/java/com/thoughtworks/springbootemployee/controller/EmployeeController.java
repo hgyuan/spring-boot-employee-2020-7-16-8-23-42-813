@@ -20,8 +20,9 @@ public class EmployeeController {
         employeeRepository.addEmployee(employee);
     }
 
-    @PutMapping()
-    public void updateEmployee(@RequestBody Employee employee) {
+    @PutMapping("/{employeeId}")
+    public void updateEmployee(@PathVariable Integer employeeId,@RequestBody Employee employee) {
+        employee.setId(employeeId);
         employeeRepository.updateEmployee(employee);
     }
 
