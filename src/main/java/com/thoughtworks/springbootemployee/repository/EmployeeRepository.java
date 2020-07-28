@@ -1,5 +1,6 @@
 package com.thoughtworks.springbootemployee.repository;
 
+import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 
 import java.util.List;
@@ -14,4 +15,8 @@ public interface EmployeeRepository {
     Boolean updateEmployee(Employee employee);
 
     Employee getEmployee(Integer id);
+
+    List<Employee> getEmployeesByGender(String gender);
+
+    List<Employee> queryEmployeesByPage(Integer page, Integer pageSize);
 }
