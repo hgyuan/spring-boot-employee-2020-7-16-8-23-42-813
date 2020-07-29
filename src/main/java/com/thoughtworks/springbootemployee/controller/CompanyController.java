@@ -2,9 +2,11 @@ package com.thoughtworks.springbootemployee.controller;
 
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
-import com.thoughtworks.springbootemployee.repository.CompanyRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import com.thoughtworks.springbootemployee.service.CompanyService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -12,44 +14,22 @@ import java.util.List;
 @RequestMapping(value = "/companies")
 public class CompanyController {
 
+    private final CompanyService companyService;
 
-    @Autowired
-    private CompanyRepository companyRepository;
-
-    @PostMapping()
-    public void addCompany(@RequestBody Company company) {
-        companyRepository.addCompany(company);
+    public CompanyController(CompanyService companyService) {
+        this.companyService = companyService;
     }
 
-    @PutMapping("/{companyId}")
-    public void updateCompany(@PathVariable Integer companyId, @RequestBody Company company) {
-        company.setId(companyId);
-        companyRepository.updateCompany(company);
+    @GetMapping(params = {"companyId"})
+    private List<Employee> findEnployeesByCompanyId(@RequestParam Integer companyId){
+
+        return companyService.findEmployeesByCompanyId(companyId);
     }
 
-    @DeleteMapping("/{companyId}")
-    public void deleteEmployeesOfCompany(@PathVariable Integer companyId) {
-        companyRepository.deleteEmployeesOfCompany(companyId);
-    }
 
     @GetMapping()
-    public List<Company> getCompanies(@RequestParam(value = "page", required = false) Integer page,
-                                      @RequestParam(value = "pageSize", required = false) Integer pageSize) {
-        if (page != null && pageSize != null) {
-            return companyRepository.queryCompanyByPage(page,pageSize);
-        }
-        return companyRepository.getCompanies();
+    private List<Company> findAllCompanies(){
+
+        return companyService.findAll();
     }
-
-    @GetMapping("/{companyId}")
-    public Company getEmployees(@RequestParam("companyId") Integer companyId) {
-        return companyRepository.getCompany(companyId);
-    }
-
-    @GetMapping("/{companyId}/employees")
-    public List<Employee> getEmployeesByCompanyId(@PathVariable("companyId") Integer companyId) {
-        return companyRepository.getCompany(companyId).getEmployees();
-    }
-
-
 }

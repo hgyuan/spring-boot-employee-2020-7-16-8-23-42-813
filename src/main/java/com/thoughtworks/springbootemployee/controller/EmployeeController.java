@@ -2,9 +2,13 @@ package com.thoughtworks.springbootemployee.controller;
 
 
 import com.thoughtworks.springbootemployee.entity.Employee;
-import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import com.thoughtworks.springbootemployee.service.EmployeeService;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -12,42 +16,24 @@ import java.util.List;
 @RequestMapping(value = "/employees")
 public class EmployeeController {
 
-    @Autowired
-    private EmployeeRepository employeeRepository;
+    private final EmployeeService employeeService;
 
-    @PostMapping()
-    public void addEmployee(@RequestBody Employee employee) {
-        employeeRepository.addEmployee(employee);
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 
-    @PutMapping("/{employeeId}")
-    public void updateEmployee(@PathVariable Integer employeeId,@RequestBody Employee employee) {
-        employee.setId(employeeId);
-        employeeRepository.updateEmployee(employee);
+//    @GetMapping
+//    public List<Employee> findAllEmployees(){
+//        return employeeService.findAll();
+//    }
+
+    @GetMapping(params = {"name"})
+    public List<Employee> findAllByName(@RequestParam String name){
+        return employeeService.findAllByName(name);
     }
 
-    @DeleteMapping("/{employeeId}")
-    public void deleteEmployee(@PathVariable Integer employeeId) {
-        employeeRepository.deleteEmployee(employeeId);
+    @GetMapping(params = {"size","page","sort"})
+    public List<Employee> findEmployeesByPage(@PageableDefault(size = 2,page = 1)Pageable pageable){
+        return employeeService.findEmployeesByPage(pageable);
     }
-
-    @GetMapping()
-    public List<Employee> getEmployee(@RequestParam(value = "gender", required = false) String gender,
-                                      @RequestParam(value = "page", required = false) Integer page,
-                                      @RequestParam(value = "pageSize", required = false) Integer pageSize) {
-        if (gender != null) {
-            return employeeRepository.getEmployeesByGender(gender);
-        }
-        if (page != null && pageSize != null) {
-            return employeeRepository.queryEmployeesByPage(page, pageSize);
-        }
-        return employeeRepository.findAll();
-    }
-
-    @GetMapping("/{employeeId}")
-    public Employee getEmployee(@PathVariable("employeeId") Integer employeeId) {
-        return employeeRepository.getEmployee(employeeId);
-    }
-
-
 }
