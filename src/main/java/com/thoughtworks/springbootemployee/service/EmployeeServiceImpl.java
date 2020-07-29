@@ -37,4 +37,19 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRepository.findById(id)
                 .orElseThrow(NotFoundException::new);
     }
+
+    @Override
+    public void updateEmployee(Employee employee) {
+        employeeRepository.save(employee);
+    }
+
+    @Override
+    public void deleteEmployeeById(Integer employeeId) {
+        employeeRepository.deleteById(employeeId);
+    }
+
+    @Override
+    public List<Employee> findEmployeesByGender(String gender) {
+        return employeeRepository.findByGender(gender);
+    }
 }

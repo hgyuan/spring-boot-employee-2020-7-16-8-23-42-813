@@ -94,6 +94,5 @@ public class EmployeeServiceTest {
         Employee returnEmployee = employeeService.queryEmployeeById(id);
         //then
         assertEquals(id,returnEmployee.getId());
-
     }
 }

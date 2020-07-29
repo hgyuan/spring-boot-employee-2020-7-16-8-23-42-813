@@ -15,4 +15,10 @@ public interface EmployeeService {
     Page<Employee> queryEmployeeByPage(Pageable pageRequest);
 
     Employee queryEmployeeById(int i);
+
+    void updateEmployee(Employee employee);
+
+    void deleteEmployeeById(Integer employeeId);
+
+    List<Employee> findEmployeesByGender(String gender);
 }
