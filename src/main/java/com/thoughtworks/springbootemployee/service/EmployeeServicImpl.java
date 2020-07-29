@@ -21,6 +21,6 @@ public class EmployeeServicImpl implements EmployeeService {
 
     @Override
     public List<Employee> findAll() {
-        return null;
+        return employeeRepository.findAll();
     }
 }
