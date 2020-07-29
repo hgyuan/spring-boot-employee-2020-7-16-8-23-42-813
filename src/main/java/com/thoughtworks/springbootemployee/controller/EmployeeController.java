@@ -27,7 +27,7 @@ public class EmployeeController {
 
     @PutMapping("/{employeeId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void updateEmployee(@PathVariable Integer employeeId,@RequestBody Employee employee) {
+    public void updateEmployee(@PathVariable Integer employeeId, @RequestBody Employee employee) {
         employee.setId(employeeId);
         employeeService.updateEmployee(employee);
     }
@@ -38,15 +38,15 @@ public class EmployeeController {
     }
 
     @GetMapping
-    public List<Employee> findEmployeesByPage(@PageableDefault(size = 2,page = 1)Pageable pageable,@RequestParam Boolean unpaged){
-        if(unpaged){
+    public List<Employee> findEmployeesByPage(@PageableDefault(size = 2, page = 1) Pageable pageable, @RequestParam Boolean unpaged) {
+        if (unpaged) {
             return employeeService.findAll();
         }
         return employeeService.queryEmployeeByPage(pageable).getContent();
     }
 
     @GetMapping(params = "gender")
-    public List<Employee> findEmployeesByGender(@RequestParam String gender){
+    public List<Employee> findEmployeesByGender(@RequestParam String gender) {
         return employeeService.findEmployeesByGender(gender);
     }
 }

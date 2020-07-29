@@ -93,6 +93,6 @@ public class EmployeeServiceTest {
         //when
         Employee returnEmployee = employeeService.queryEmployeeById(id);
         //then
-        assertEquals(id,returnEmployee.getId());
+        assertEquals(id, returnEmployee.getId());
     }
 }
