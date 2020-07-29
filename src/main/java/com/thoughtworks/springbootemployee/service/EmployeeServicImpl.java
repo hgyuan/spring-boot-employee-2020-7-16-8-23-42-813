@@ -1,6 +1,7 @@
 package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.entity.Employee;
+import com.thoughtworks.springbootemployee.exception.NotFoundException;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,6 +34,7 @@ public class EmployeeServicImpl implements EmployeeService {
 
     @Override
     public Employee queryEmployeeById(int id) {
-        return null;
+        return employeeRepository.findById(id)
+                .orElseThrow(NotFoundException::new);
     }
 }

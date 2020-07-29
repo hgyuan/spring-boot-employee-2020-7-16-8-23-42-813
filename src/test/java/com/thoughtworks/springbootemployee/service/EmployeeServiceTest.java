@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -64,7 +65,7 @@ public class EmployeeServiceTest {
         employees.add(new Employee());
         employees.add(new Employee());
         Page<Employee> pages = new PageImpl<>(employees);
-        when(employeeRepository.findAll(org.mockito.Matchers.isA(Pageable.class))).thenReturn(pages);
+        when(employeeRepository.findAll(Mockito.any(Pageable.class))).thenReturn(pages);
         //when
         Page<Employee> pageOfEmployees = employeeServic.queryEmployeeByPage(pageRequest);
 
@@ -74,7 +75,7 @@ public class EmployeeServiceTest {
 
     @Test
     void should_throw_not_found_exception_when_query_employee_by_id_given_not_exist_id() {
-        when(employeeRepository.findById(Mockito.anyInt())).thenReturn(null);
+        when(employeeRepository.findById(Mockito.anyInt())).thenReturn(Optional.empty());
         //when
         Throwable throwable =assertThrows(NotFoundException.class,()->employeeServic.queryEmployeeById(0));
         //then
