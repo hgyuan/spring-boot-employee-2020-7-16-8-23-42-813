@@ -29,6 +29,7 @@ public class Employee {
     public Employee() {
     }
 
+
     public Company getCompany() {
         return company;
     }

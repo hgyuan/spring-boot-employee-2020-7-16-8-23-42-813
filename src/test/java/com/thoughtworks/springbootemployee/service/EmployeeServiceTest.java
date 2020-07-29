@@ -77,8 +77,23 @@ public class EmployeeServiceTest {
     void should_throw_not_found_exception_when_query_employee_by_id_given_not_exist_id() {
         when(employeeRepository.findById(Mockito.anyInt())).thenReturn(Optional.empty());
         //when
-        Throwable throwable =assertThrows(NotFoundException.class,()->employeeServic.queryEmployeeById(0));
+        Throwable throwable = assertThrows(NotFoundException.class, () -> employeeServic.queryEmployeeById(0));
         //then
-        assertEquals("not found",throwable.getMessage());
+        assertEquals("not found", throwable.getMessage());
+    }
+
+    @Test
+    void should_return_employee_when_query_employee_by_id_given_exist_id() {
+        //given
+        final Integer id = 1;
+        Employee employee = new Employee();
+        employee.setId(id);
+        Optional<Employee> optionalEmployee = Optional.of(employee);
+        when(employeeRepository.findById(Mockito.anyInt())).thenReturn(optionalEmployee);
+        //when
+        Employee returnEmployee = employeeServic.queryEmployeeById(id);
+        //then
+        assertEquals(id,returnEmployee.getId());
+
     }
 }
