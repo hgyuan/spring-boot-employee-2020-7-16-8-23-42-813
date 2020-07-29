@@ -3,7 +3,10 @@ package com.thoughtworks.springbootemployee.service;
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.exception.NotFoundException;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CompanyServiceImpl implements CompanyService {
@@ -23,5 +26,25 @@ public class CompanyServiceImpl implements CompanyService {
     public Company queryCompanyById(int id) {
         return companyRepository.findById(id)
                 .orElseThrow(NotFoundException::new);
+    }
+
+    @Override
+    public void updateCompany(Company company) {
+        companyRepository.save(company);
+    }
+
+    @Override
+    public void deleteCompany(Integer companyId) {
+        companyRepository.deleteById(companyId);
+    }
+
+    @Override
+    public List<Company> findAll() {
+        return companyRepository.findAll();
+    }
+
+    @Override
+    public List<Company> queryCompanyByPage(Pageable pageable) {
+        return companyRepository.findAll(pageable).getContent();
     }
 }
