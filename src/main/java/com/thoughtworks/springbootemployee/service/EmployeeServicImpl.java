@@ -4,6 +4,8 @@ import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EmployeeServicImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
@@ -15,5 +17,10 @@ public class EmployeeServicImpl implements EmployeeService {
     @Override
     public Employee addEmployee(Employee employee) {
         return employeeRepository.save(employee);
+    }
+
+    @Override
+    public List<Employee> findAll() {
+        return null;
     }
 }

@@ -1,5 +1,6 @@
 package com.thoughtworks.springbootemployee.service;
 
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
@@ -9,6 +10,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -33,5 +37,17 @@ public class EmployeeServiceTest {
         //then
         assertEquals(employee.getName(),returnEmployee.getName());
 
+    }
+
+    @Test
+    void should_return_size_0_when_getEmployees_given_0_employee() {
+
+        //given
+        when(employeeRepository.findAll()).thenReturn(new ArrayList<>(0));
+        //when
+        List<Employee> employees = employeeServic.findAll();
+
+        //then
+        assertEquals(0,employees.size());
     }
 }
