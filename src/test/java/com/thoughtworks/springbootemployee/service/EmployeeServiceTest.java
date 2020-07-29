@@ -1,8 +1,8 @@
 package com.thoughtworks.springbootemployee.service;
 
-import com.sun.javafx.scene.control.skin.VirtualFlow;
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
+import com.thoughtworks.springbootemployee.exception.NotFoundException;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -58,8 +59,6 @@ public class EmployeeServiceTest {
     @Test
     void should_return_size_2_when_query_employee_by_page_given_page_1_size_2_4employee() {
         //given
-        int page = 1;
-        int size = 2;
         Pageable pageRequest = PageRequest.of(1, 2);
         List<Employee> employees = new ArrayList<>(2);
         employees.add(new Employee());
@@ -71,5 +70,14 @@ public class EmployeeServiceTest {
 
         //then
         assertEquals(2, pageOfEmployees.getContent().size());
+    }
+
+    @Test
+    void should_throw_not_found_exception_when_query_employee_by_id_given_not_exist_id() {
+        when(employeeRepository.findById(Mockito.anyInt())).thenReturn(null);
+        //when
+        Throwable throwable =assertThrows(NotFoundException.class,()->employeeServic.queryEmployeeById(0));
+        //then
+        assertEquals("not found",throwable.getMessage());
     }
 }
