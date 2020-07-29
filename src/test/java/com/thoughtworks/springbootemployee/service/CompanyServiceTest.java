@@ -48,4 +48,18 @@ public class CompanyServiceTest {
         //then
         assertEquals("not found", throwable.getMessage());
     }
+
+    @Test
+    void should_return_company_when_query_company_by_id_given_exist_id() {
+        //given
+        final Integer id = 1;
+        Company company = new Company();
+        company.setId(id);
+        Optional<Company> optionalCompany = Optional.of(company);
+        when(companyRepository.findById(Mockito.anyInt())).thenReturn(optionalCompany);
+        //when
+        Company returnCompany = companyService.queryCompanyById(id);
+        //then
+        assertEquals(id, returnCompany.getId());
+    }
 }
