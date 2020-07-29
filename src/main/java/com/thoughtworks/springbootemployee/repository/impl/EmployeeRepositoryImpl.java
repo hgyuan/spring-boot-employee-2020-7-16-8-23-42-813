@@ -1,16 +1,15 @@
 package com.thoughtworks.springbootemployee.repository.impl;
 
 
-import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
+@Repository
 public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     List<Employee> employeeList = new ArrayList<>();
@@ -21,7 +20,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     @Override
-    public List<Employee> getEmployees() {
+    public List<Employee> findAll() {
         return this.employeeList;
     }
 

@@ -41,7 +41,7 @@ public class EmployeeController {
         if (page != null && pageSize != null) {
             return employeeRepository.queryEmployeesByPage(page, pageSize);
         }
-        return employeeRepository.getEmployees();
+        return employeeRepository.findAll();
     }
 
     @GetMapping("/{employeeId}")

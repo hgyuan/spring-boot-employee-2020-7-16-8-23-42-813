@@ -8,7 +8,7 @@ import java.util.List;
 public interface EmployeeRepository {
     void addEmployee(Employee employee);
 
-    List<Employee> getEmployees();
+    List<Employee> findAll();
 
     Boolean deleteEmployee(Integer employeeId);
 

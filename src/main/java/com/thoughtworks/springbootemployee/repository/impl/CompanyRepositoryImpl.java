@@ -3,12 +3,12 @@ package com.thoughtworks.springbootemployee.repository.impl;
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Repository
 public class CompanyRepositoryImpl implements CompanyRepository {
     List<Company> companyList = new ArrayList<>();
 

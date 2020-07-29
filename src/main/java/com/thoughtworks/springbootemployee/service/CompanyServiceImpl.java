@@ -1,0 +1,21 @@
+package com.thoughtworks.springbootemployee.service;
+
+import com.thoughtworks.springbootemployee.entity.Company;
+import com.thoughtworks.springbootemployee.repository.CompanyRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+public class CompanyServiceImpl implements CompanyService {
+
+    @Autowired
+    CompanyRepository companyRepository;
+
+    @Override
+    public List<Company> queryCompanyByPage(int page, int pageSize) {
+        return new ArrayList<>(0);
+    }
+}
