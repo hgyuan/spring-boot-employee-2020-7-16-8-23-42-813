@@ -17,6 +17,14 @@ public class Company {
     @JsonIgnore
     private List<Employee> employees;
 
+    public Company(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Company() {
+    }
+
     public String getName() {
         return name;
     }

@@ -19,6 +19,12 @@ public class Employee {
     @ManyToOne
     private Company company;
 
+    public Employee(String name, Integer age, String gender, Company company) {
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.company = company;
+    }
 
     public Employee() {
     }
