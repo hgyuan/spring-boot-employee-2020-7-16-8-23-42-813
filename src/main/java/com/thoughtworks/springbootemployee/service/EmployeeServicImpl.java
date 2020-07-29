@@ -28,6 +28,6 @@ public class EmployeeServicImpl implements EmployeeService {
 
     @Override
     public Page<Employee> queryEmployeeByPage(Pageable pageRequest) {
-        return null;
+        return employeeRepository.findAll(pageRequest);
     }
 }

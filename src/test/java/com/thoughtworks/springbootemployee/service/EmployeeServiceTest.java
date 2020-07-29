@@ -62,6 +62,8 @@ public class EmployeeServiceTest {
         int size = 2;
         Pageable pageRequest = PageRequest.of(1, 2);
         List<Employee> employees = new ArrayList<>(2);
+        employees.add(new Employee());
+        employees.add(new Employee());
         Page<Employee> pages = new PageImpl<>(employees);
         when(employeeRepository.findAll(org.mockito.Matchers.isA(Pageable.class))).thenReturn(pages);
         //when
@@ -69,6 +71,5 @@ public class EmployeeServiceTest {
 
         //then
         assertEquals(2, pageOfEmployees.getContent().size());
-
     }
 }
