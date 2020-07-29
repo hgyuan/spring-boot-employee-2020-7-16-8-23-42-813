@@ -13,4 +13,6 @@ public interface EmployeeService {
     List<Employee> findAll();
 
     Page<Employee> queryEmployeeByPage(Pageable pageRequest);
+
+    Employee queryEmployeeById(int i);
 }

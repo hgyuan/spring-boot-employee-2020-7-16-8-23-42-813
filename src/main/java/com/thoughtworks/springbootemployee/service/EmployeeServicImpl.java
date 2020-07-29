@@ -30,4 +30,9 @@ public class EmployeeServicImpl implements EmployeeService {
     public Page<Employee> queryEmployeeByPage(Pageable pageRequest) {
         return employeeRepository.findAll(pageRequest);
     }
+
+    @Override
+    public Employee queryEmployeeById(int id) {
+        return null;
+    }
 }
