@@ -14,7 +14,7 @@ public interface EmployeeService {
 
     Page<Employee> queryEmployeeByPage(Pageable pageRequest);
 
-    Employee queryEmployeeById(int i);
+    Employee queryEmployeeById(int id);
 
     void updateEmployee(Employee employee);
 
