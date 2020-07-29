@@ -26,7 +26,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class EmployeeServiceTest {
     @InjectMocks
-    EmployeeServicImpl employeeServic;
+    EmployeeServiceImpl employeeService;
     @Mock
     EmployeeRepository employeeRepository;
 
@@ -38,7 +38,7 @@ public class EmployeeServiceTest {
 
         when(employeeRepository.save(Mockito.any())).thenReturn(employee);
         //when
-        Employee returnEmployee = employeeServic.addEmployee(employee);
+        Employee returnEmployee = employeeService.addEmployee(employee);
 
         //then
         assertEquals(employee.getName(), returnEmployee.getName());
@@ -51,7 +51,7 @@ public class EmployeeServiceTest {
         //given
         when(employeeRepository.findAll()).thenReturn(new ArrayList<>(0));
         //when
-        List<Employee> employees = employeeServic.findAll();
+        List<Employee> employees = employeeService.findAll();
 
         //then
         assertEquals(0, employees.size());
@@ -67,7 +67,7 @@ public class EmployeeServiceTest {
         Page<Employee> pages = new PageImpl<>(employees);
         when(employeeRepository.findAll(Mockito.any(Pageable.class))).thenReturn(pages);
         //when
-        Page<Employee> pageOfEmployees = employeeServic.queryEmployeeByPage(pageRequest);
+        Page<Employee> pageOfEmployees = employeeService.queryEmployeeByPage(pageRequest);
 
         //then
         assertEquals(2, pageOfEmployees.getContent().size());
@@ -77,7 +77,7 @@ public class EmployeeServiceTest {
     void should_throw_not_found_exception_when_query_employee_by_id_given_not_exist_id() {
         when(employeeRepository.findById(Mockito.anyInt())).thenReturn(Optional.empty());
         //when
-        Throwable throwable = assertThrows(NotFoundException.class, () -> employeeServic.queryEmployeeById(0));
+        Throwable throwable = assertThrows(NotFoundException.class, () -> employeeService.queryEmployeeById(0));
         //then
         assertEquals("not found", throwable.getMessage());
     }
@@ -91,7 +91,7 @@ public class EmployeeServiceTest {
         Optional<Employee> optionalEmployee = Optional.of(employee);
         when(employeeRepository.findById(Mockito.anyInt())).thenReturn(optionalEmployee);
         //when
-        Employee returnEmployee = employeeServic.queryEmployeeById(id);
+        Employee returnEmployee = employeeService.queryEmployeeById(id);
         //then
         assertEquals(id,returnEmployee.getId());
 
