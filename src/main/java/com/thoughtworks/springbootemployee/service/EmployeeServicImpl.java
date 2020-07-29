@@ -14,6 +14,6 @@ public class EmployeeServicImpl implements EmployeeService {
 
     @Override
     public Employee addEmployee(Employee employee) {
-        return null;
+        return employeeRepository.save(employee);
     }
 }
