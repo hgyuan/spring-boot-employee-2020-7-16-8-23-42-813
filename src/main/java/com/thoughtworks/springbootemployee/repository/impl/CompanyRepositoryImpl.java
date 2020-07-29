@@ -56,13 +56,13 @@ public class CompanyRepositoryImpl implements CompanyRepository {
 
     @Override
     public List<Company> queryCompanyByPage(Integer page, Integer pageSize) {
-        if((page-1)*pageSize>=companyList.size()){
+        if ((page - 1) * pageSize >= companyList.size()) {
             return new ArrayList<>();
         }
-        if((page-1)*pageSize<companyList.size()&&companyList.size()<page*pageSize){
-            return companyList.subList((page-1)*pageSize,companyList.size());
+        if ((page - 1) * pageSize < companyList.size() && companyList.size() < page * pageSize) {
+            return companyList.subList((page - 1) * pageSize, companyList.size());
         }
-        return companyList.subList((page-1)*pageSize,page*pageSize);
+        return companyList.subList((page - 1) * pageSize, page * pageSize);
     }
 
     private Company getCompanyById(Integer companyId) {
