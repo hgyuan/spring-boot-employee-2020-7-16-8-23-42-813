@@ -1,5 +1,6 @@
 package com.thoughtworks.springbootemployee.service;
 
+import com.thoughtworks.springbootemployee.dto.EmployeeRequestDto;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.exception.NotFoundException;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
@@ -51,5 +52,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Employee> findEmployeesByGender(String gender) {
         return employeeRepository.findByGender(gender);
+    }
+
+    @Override
+    public Employee findEmployeeByDto(EmployeeRequestDto employeeRequestDto) {
+        return null;
     }
 }

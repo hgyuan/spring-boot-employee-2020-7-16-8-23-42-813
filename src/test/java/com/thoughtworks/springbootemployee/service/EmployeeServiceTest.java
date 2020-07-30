@@ -1,8 +1,10 @@
 package com.thoughtworks.springbootemployee.service;
 
+import com.thoughtworks.springbootemployee.dto.EmployeeRequestDto;
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.exception.NotFoundException;
+import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,6 +23,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -29,6 +32,8 @@ public class EmployeeServiceTest {
     EmployeeServiceImpl employeeService;
     @Mock
     EmployeeRepository employeeRepository;
+    @Mock
+    CompanyRepository companyRepository;
 
     @Test
     void should_return_employee_when_addEmployee_given_1_Employee_1_company() {
@@ -36,7 +41,7 @@ public class EmployeeServiceTest {
         Company company = new Company(1, "OOCL");
         Employee employee = new Employee("Richard", 18, "male", company);
 
-        when(employeeRepository.save(Mockito.any())).thenReturn(employee);
+        when(employeeRepository.save(any())).thenReturn(employee);
         //when
         Employee returnEmployee = employeeService.addEmployee(employee);
 
@@ -65,7 +70,7 @@ public class EmployeeServiceTest {
         employees.add(new Employee());
         employees.add(new Employee());
         Page<Employee> pages = new PageImpl<>(employees);
-        when(employeeRepository.findAll(Mockito.any(Pageable.class))).thenReturn(pages);
+        when(employeeRepository.findAll(any(Pageable.class))).thenReturn(pages);
         //when
         Page<Employee> pageOfEmployees = employeeService.queryEmployeeByPage(pageRequest);
 
@@ -94,5 +99,23 @@ public class EmployeeServiceTest {
         Employee returnEmployee = employeeService.queryEmployeeById(id);
         //then
         assertEquals(id, returnEmployee.getId());
+    }
+
+    @Test
+    void should_return_employee_when_add_employee_by_dto_given_employee_request_dto_company() {
+        //given
+        Company company=new Company();
+        Optional<Company> returnOptional=Optional.of(company);
+        company.setId(1);
+        Employee employeeSave=new Employee("olivia",18,"female",company);
+        EmployeeRequestDto employeeRequestDto=new EmployeeRequestDto("olivia",18,"female",1);
+        when(companyRepository.findById(1)).thenReturn(returnOptional);
+        when(employeeRepository.save(any())).thenReturn(employeeSave);
+
+        //when
+        Employee returnEmployee=employeeService.findEmployeeByDto(employeeRequestDto);
+
+        //then
+        assertEquals(employeeRequestDto.getName(),returnEmployee.getName());
     }
 }

@@ -7,6 +7,13 @@ public class EmployeeRequestDto {
     private String gender;
     private Integer companyId;
 
+    public EmployeeRequestDto(String name, Integer age, String gender, Integer companyId) {
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.companyId = companyId;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -46,4 +53,6 @@ public class EmployeeRequestDto {
     public void setCompanyId(Integer companyId) {
         this.companyId = companyId;
     }
+
+
 }

@@ -1,5 +1,6 @@
 package com.thoughtworks.springbootemployee.service;
 
+import com.thoughtworks.springbootemployee.dto.EmployeeRequestDto;
 import com.thoughtworks.springbootemployee.entity.Company;
 import org.springframework.data.domain.Pageable;
 
@@ -19,4 +20,5 @@ public interface CompanyService {
     List<Company> queryCompanyByPage(Pageable pageable);
 
 
+    void addCompanyByDto(EmployeeRequestDto employeeRequestDto);
 }

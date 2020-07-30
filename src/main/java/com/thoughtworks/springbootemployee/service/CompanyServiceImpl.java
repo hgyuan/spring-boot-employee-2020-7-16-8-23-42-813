@@ -1,5 +1,6 @@
 package com.thoughtworks.springbootemployee.service;
 
+import com.thoughtworks.springbootemployee.dto.EmployeeRequestDto;
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.exception.NotFoundException;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
@@ -26,6 +27,11 @@ public class CompanyServiceImpl implements CompanyService {
     public Company queryCompanyById(int id) {
         return companyRepository.findById(id)
                 .orElseThrow(NotFoundException::new);
+    }
+
+    @Override
+    public void addCompanyByDto(EmployeeRequestDto employeeRequestDto) {
+
     }
 
     @Override

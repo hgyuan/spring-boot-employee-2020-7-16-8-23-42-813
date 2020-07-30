@@ -1,6 +1,7 @@
 package com.thoughtworks.springbootemployee.service;
 
 
+import com.thoughtworks.springbootemployee.dto.EmployeeRequestDto;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,4 +22,6 @@ public interface EmployeeService {
     void deleteEmployeeById(Integer employeeId);
 
     List<Employee> findEmployeesByGender(String gender);
+
+    Employee findEmployeeByDto(EmployeeRequestDto employeeRequestDto);
 }

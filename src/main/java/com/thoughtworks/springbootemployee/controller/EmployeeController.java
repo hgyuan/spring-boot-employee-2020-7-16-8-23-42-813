@@ -1,8 +1,6 @@
 package com.thoughtworks.springbootemployee.controller;
 
-import com.fasterxml.jackson.databind.util.BeanUtil;
 import com.thoughtworks.springbootemployee.dto.EmployeeRequestDto;
-import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.service.CompanyService;
 import com.thoughtworks.springbootemployee.service.EmployeeService;
@@ -13,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 @RequestMapping(value = "/employees")
@@ -29,10 +26,7 @@ public class EmployeeController {
 
     @PostMapping()
     public void addEmployee(@RequestBody EmployeeRequestDto employeeRequestDto) {
-        Employee employee = new Employee();
-        BeanUtils.copyProperties(employeeRequestDto,employee);
-        employee.setCompany(companyService.queryCompanyById(employeeRequestDto.getCompanyId()));
-        employeeService.addEmployee(employee);
+        companyService.addCompanyByDto(employeeRequestDto);
     }
 
     @PutMapping("/{employeeId}")
