@@ -144,9 +144,9 @@ public class EmployeeServiceTest {
     void should_throw_employee_not_found_when_update_employee_by_employee_dto_given_employee_request_dto() {
         //given
         EmployeeRequestDto employeeRequestDto = new EmployeeRequestDto("olivia", 10, "female", 1);
-
+        Optional<Employee> optionalEmployee = Optional.empty();
         //when
-        when(employeeRepository.findById(any())).thenReturn(null);
+        when(employeeRepository.findById(any())).thenReturn(optionalEmployee);
         Throwable throwable = assertThrows(NotFoundException.class, ()->employeeService.updateEmployeeByDto(employeeRequestDto));
 
         //then
