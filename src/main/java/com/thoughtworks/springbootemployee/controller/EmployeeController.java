@@ -4,6 +4,7 @@ import com.thoughtworks.springbootemployee.dto.EmployeeRequestDto;
 import com.thoughtworks.springbootemployee.dto.EmployeeResponseDto;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.service.EmployeeService;
+import com.thoughtworks.springbootemployee.util.EmployeeUtil;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -42,20 +43,23 @@ public class EmployeeController {
     }
 
     @GetMapping
-    public List<Employee> findEmployeesByPage(@PageableDefault(size = 2, page = 1) Pageable pageable, @RequestParam Boolean unpaged) {
+    public List<EmployeeResponseDto> findEmployeesByPage(@PageableDefault(size = 2, page = 1) Pageable pageable, @RequestParam Boolean unpaged) {
+        List<Employee> employees;
         if (unpaged) {
-            return employeeService.findAll();
+            employees = employeeService.findAll();
+        }else {
+            employees = employeeService.queryEmployeeByPage(pageable).getContent();
         }
-        return employeeService.queryEmployeeByPage(pageable).getContent();
+        return EmployeeUtil.castToEmployeeResponseDtos(employees);
     }
 
     @GetMapping(params = "gender")
-    public List<Employee> findEmployeesByGender(@RequestParam String gender) {
-        return employeeService.findEmployeesByGender(gender);
+    public List<EmployeeResponseDto> findEmployeesByGender(@RequestParam String gender) {
+        return EmployeeUtil.castToEmployeeResponseDtos(employeeService.findEmployeesByGender(gender));
     }
 
     @GetMapping("/{employeeId}")
-    public Employee queryEmployeesById(@PathVariable Integer employeeId) {
-        return employeeService.queryEmployeeById(employeeId);
+    public EmployeeResponseDto queryEmployeesById(@PathVariable Integer employeeId) {
+        return EmployeeUtil.castToEmployeeResponseDto(employeeService.queryEmployeeById(employeeId));
     }
 }
