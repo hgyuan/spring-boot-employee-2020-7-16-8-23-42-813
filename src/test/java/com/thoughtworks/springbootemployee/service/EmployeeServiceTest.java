@@ -84,7 +84,6 @@ public class EmployeeServiceTest {
         //when
         Throwable throwable = assertThrows(NotFoundException.class, () -> employeeService.queryEmployeeById(0));
         //then
-        assertEquals("not found", throwable.getMessage());
     }
 
     @Test
@@ -139,5 +138,19 @@ public class EmployeeServiceTest {
 
         //then
         assertEquals(employeeRequestDto.getName(), returnEmployee.getName());
+    }
+
+    @Test
+    void should_throw_employee_not_found_when_update_employee_by_employee_dto_given_employee_request_dto() {
+        //given
+        EmployeeRequestDto employeeRequestDto = new EmployeeRequestDto("olivia", 10, "female", 1);
+
+        //when
+        when(employeeRepository.findById(any())).thenReturn(null);
+        Throwable throwable = assertThrows(NotFoundException.class, ()->employeeService.updateEmployeeByDto(employeeRequestDto));
+
+        //then
+        assertEquals("not found", throwable.getMessage());
+
     }
 }
