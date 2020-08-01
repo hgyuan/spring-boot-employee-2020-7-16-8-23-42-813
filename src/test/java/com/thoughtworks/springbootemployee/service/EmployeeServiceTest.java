@@ -123,13 +123,18 @@ public class EmployeeServiceTest {
     void should_return_employee_when_update_employee_by_employee_dto_given_employee_request_dto_company() {
         //given
         EmployeeRequestDto employeeRequestDto=new EmployeeRequestDto("olivia",10,"female",1);
+        employeeRequestDto.setId(1);
         Company company=new Company();
         company.setId(employeeRequestDto.getCompanyId());
-        Employee employee=new Employee("olivia",10,"female",company);
-        Optional<Company> optionalCompany= Optional.of(company);
+        Employee employeeBeforeSave=new Employee("olivia1111",10,"female",company);
+        employeeBeforeSave.setId(1);
+        Employee employeeAfterSaved=new Employee("olivia",10,"female",company);
+        employeeAfterSaved.setId(1);
+        Optional<Employee> optionalEmployee = Optional.of(employeeBeforeSave);
 
         //when
-        when(employeeRepository.save(any())).thenReturn(employee);
+        when(employeeRepository.findById(any())).thenReturn(optionalEmployee);
+        when(employeeRepository.save(any())).thenReturn(employeeAfterSaved);
         Employee returnEmployee = employeeService.updateEmployeeByDto(employeeRequestDto);
 
         //then
