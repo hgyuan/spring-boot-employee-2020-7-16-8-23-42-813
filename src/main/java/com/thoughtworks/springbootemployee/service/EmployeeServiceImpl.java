@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -71,7 +72,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee updateEmployeeByDto(EmployeeRequestDto employeeRequestDto) {
-        Employee employee = employeeRepository.findById(employeeRequestDto.getId()).get();
+        Employee employee = employeeRepository.findById(employeeRequestDto.getId()).orElse(null);
+        if(Objects.isNull(employee)){
+            throw new NotFoundException();
+        }
         if(!employee.getCompany().getId().equals(employeeRequestDto.getCompanyId())){
             Company company = companyRepository.findById(employeeRequestDto.getCompanyId()).get();
             employee.setCompany(company);
