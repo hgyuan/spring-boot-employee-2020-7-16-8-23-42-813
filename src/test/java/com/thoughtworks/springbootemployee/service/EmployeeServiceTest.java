@@ -102,18 +102,18 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    void should_return_employee_when_add_employee_by_dto_given_employee_request_dto_company() {
-        //given
+    void should_return_employee_when_add_employee_by_employee_dto_given_employee_request_dto_company() {
+       //given
+        EmployeeRequestDto employeeRequestDto=new EmployeeRequestDto("olivia",10,"female",1);
         Company company=new Company();
-        Optional<Company> returnOptional=Optional.of(company);
-        company.setId(1);
-        Employee employeeSave=new Employee("olivia",18,"female",company);
-        EmployeeRequestDto employeeRequestDto=new EmployeeRequestDto("olivia",18,"female",1);
-        when(companyRepository.findById(1)).thenReturn(returnOptional);
-        when(employeeRepository.save(any())).thenReturn(employeeSave);
+        company.setId(employeeRequestDto.getCompanyId());
+        Employee employee=new Employee("olivia",10,"female",company);
+        Optional<Company> optionalCompany= Optional.of(company);
 
         //when
-        Employee returnEmployee=employeeService.findEmployeeByDto(employeeRequestDto);
+        when(companyRepository.findById(employeeRequestDto.getCompanyId())).thenReturn(optionalCompany);
+        when(employeeRepository.save(employee)).thenReturn(employee);
+        Employee returnEmployee = employeeService.addEmployeeByDto(employeeRequestDto);
 
         //then
         assertEquals(employeeRequestDto.getName(),returnEmployee.getName());
