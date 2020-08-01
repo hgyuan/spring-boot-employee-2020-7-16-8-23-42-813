@@ -18,16 +18,14 @@ import java.util.List;
 public class EmployeeController {
 
     private final EmployeeService employeeService;
-    private final CompanyService companyService;
 
-    public EmployeeController(EmployeeService employeeService, CompanyService companyService) {
+    public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
-        this.companyService = companyService;
     }
 
     @PostMapping()
     public void addEmployee(@RequestBody @Valid EmployeeRequestDto employeeRequestDto) {
-        companyService.addCompanyByDto(employeeRequestDto);
+        employeeService.addEmployeeByDto(employeeRequestDto);
     }
 
     @PutMapping("/{employeeId}")
