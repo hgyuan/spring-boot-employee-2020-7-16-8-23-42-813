@@ -69,4 +69,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee returnEmployee = employeeRepository.save(employee);
         return returnEmployee;
     }
+
+    @Override
+    public Employee updateEmployeeByDto(EmployeeRequestDto employeeRequestDto) {
+        return null;
+    }
 }

@@ -25,4 +25,6 @@ public interface EmployeeService {
 
 
     Employee addEmployeeByDto(EmployeeRequestDto employeeRequestDto);
+
+    Employee updateEmployeeByDto(EmployeeRequestDto employeeRequestDto);
 }

@@ -118,4 +118,21 @@ public class EmployeeServiceTest {
         //then
         assertEquals(employeeRequestDto.getName(),returnEmployee.getName());
     }
+
+    @Test
+    void should_return_employee_when_update_employee_by_employee_dto_given_employee_request_dto_company() {
+        //given
+        EmployeeRequestDto employeeRequestDto=new EmployeeRequestDto("olivia",10,"female",1);
+        Company company=new Company();
+        company.setId(employeeRequestDto.getCompanyId());
+        Employee employee=new Employee("olivia",10,"female",company);
+        Optional<Company> optionalCompany= Optional.of(company);
+
+        //when
+        when(employeeRepository.save(any())).thenReturn(employee);
+        Employee returnEmployee = employeeService.updateEmployeeByDto(employeeRequestDto);
+
+        //then
+        assertEquals(employeeRequestDto.getName(),returnEmployee.getName());
+    }
 }
