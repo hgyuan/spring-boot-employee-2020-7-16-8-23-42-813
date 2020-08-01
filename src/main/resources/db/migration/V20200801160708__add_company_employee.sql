@@ -7,8 +7,12 @@ CREATE TABLE employee (
   gender VARCHAR(10) DEFAULT NULL,
   company_id INT NOT NULL
 );
+INSERT INTO employee (name, age, gender,company_id) VALUES
+ ('chengcheng','54','male',1),
+ ('yuexie','82','female',1),
+ ('haifeng','69','female',1),
+ ('ang','18','male',1);
  CREATE TABLE company (
    id INT AUTO_INCREMENT  PRIMARY KEY,
    name VARCHAR(100) NOT NULL
  );
- insert into company (id, name) values (1,"ri");
