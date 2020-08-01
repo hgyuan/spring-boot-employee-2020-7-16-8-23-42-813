@@ -28,7 +28,7 @@ public class CompanyIntegrationTest {
     private CompanyRepository companyRepository;
 
     @AfterEach
-    void tearDown(){
+    void tearDown() {
         companyRepository.deleteAll();
     }
 
@@ -50,5 +50,9 @@ public class CompanyIntegrationTest {
         assertEquals(1, companies.size());
     }
 
-
+    @Test
+    void should_return_not_found_when_get_company_given_company_id_1() throws Exception {
+        mockMvc.perform(get("/companies/1"))
+                .andExpect(status().isNotFound());
+    }
 }
