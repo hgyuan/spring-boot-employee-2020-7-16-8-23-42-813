@@ -61,4 +61,14 @@ public class CompanyIntegrationTest {
         mockMvc.perform(get("/companies/1/employees"))
                 .andExpect(status().isNotFound());
     }
+    @Test
+    void should_return_status_200_when_add_company_given_company() throws Exception {
+        String company = "{\n" +
+                "    \"name\": \"oliver\"\n" +
+                "}";
+        mockMvc.perform(post("/companies")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(company))
+                .andExpect(status().is2xxSuccessful());
+    }
 }
