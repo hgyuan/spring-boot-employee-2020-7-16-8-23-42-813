@@ -23,5 +23,6 @@ public interface EmployeeService {
 
     List<Employee> findEmployeesByGender(String gender);
 
-    Employee findEmployeeByDto(EmployeeRequestDto employeeRequestDto);
+
+    Employee addEmployeeByDto(EmployeeRequestDto employeeRequestDto);
 }

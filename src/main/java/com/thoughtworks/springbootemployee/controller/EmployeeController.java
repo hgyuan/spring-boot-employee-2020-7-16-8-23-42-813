@@ -10,6 +10,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -25,7 +26,7 @@ public class EmployeeController {
     }
 
     @PostMapping()
-    public void addEmployee(@RequestBody EmployeeRequestDto employeeRequestDto) {
+    public void addEmployee(@RequestBody @Valid EmployeeRequestDto employeeRequestDto) {
         companyService.addCompanyByDto(employeeRequestDto);
     }
 

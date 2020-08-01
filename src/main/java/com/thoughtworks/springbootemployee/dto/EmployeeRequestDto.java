@@ -1,7 +1,11 @@
 package com.thoughtworks.springbootemployee.dto;
 
+
+import javax.validation.constraints.NotBlank;
+
 public class EmployeeRequestDto {
     private Integer id;
+    @NotBlank
     private String name;
     private Integer age;
     private String gender;
@@ -12,6 +16,9 @@ public class EmployeeRequestDto {
         this.age = age;
         this.gender = gender;
         this.companyId = companyId;
+    }
+
+    public EmployeeRequestDto() {
     }
 
     public Integer getId() {

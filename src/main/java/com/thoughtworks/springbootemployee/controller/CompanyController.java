@@ -21,8 +21,9 @@ public class CompanyController {
     }
 
     @PostMapping()
-    public void addCompany(@RequestBody Company company) {
-        companyService.addCompany(company);
+    @ResponseBody
+    public Company addCompany(@RequestBody Company company) {
+        return companyService.addCompany(company);
     }
 
     @PutMapping("/{companyId}")
@@ -45,7 +46,7 @@ public class CompanyController {
     }
 
     @GetMapping("/{companyId}")
-    public Company getEmployees(@PathVariable("companyId") Integer companyId) {
+    public Company getEmployees(@PathVariable Integer companyId) {
         return companyService.queryCompanyById(companyId);
     }
 
@@ -53,6 +54,8 @@ public class CompanyController {
     public List<Employee> getEmployeesByCompanyId(@PathVariable("companyId") Integer companyId) {
         return companyService.queryCompanyById(companyId).getEmployees();
     }
+
+
 
 
 }

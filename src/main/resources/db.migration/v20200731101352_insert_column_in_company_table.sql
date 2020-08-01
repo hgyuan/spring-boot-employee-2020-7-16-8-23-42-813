@@ -1,0 +1,1 @@
+alter table company add gender varchar(30);

@@ -1,0 +1,14 @@
+DROP TABLE IF EXISTS employee;
+DROP TABLE IF EXISTS company;
+CREATE TABLE employee (
+  id INT AUTO_INCREMENT  PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  age INT NOT NULL,
+  gender VARCHAR(10) DEFAULT NULL,
+  company_id INT NOT NULL
+);
+ CREATE TABLE company (
+   id INT AUTO_INCREMENT  PRIMARY KEY,
+   name VARCHAR(100) NOT NULL
+ );
+ insert into company (id, name) values (1,"ri");
