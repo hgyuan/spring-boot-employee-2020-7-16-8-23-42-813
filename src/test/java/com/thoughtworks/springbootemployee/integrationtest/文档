@@ -1,0 +1,5 @@
+集成测试：
+    注意jpa级联删除：例如employee中包含company，不能首先删除company，再去删除employee？因为管理是company管理？
+    在jpa中，如果没有id，在emtity策略为自增情况下，是由数据库自增的。指定id没用。即使是h2内存数据库，在同一启动下也是自增的。
+    .andReturn().getResponse().getContentAsString();可以将返回值变成string。
+    .andExpect(jsonPath("name").value(employee.getName()))使用期待值。
