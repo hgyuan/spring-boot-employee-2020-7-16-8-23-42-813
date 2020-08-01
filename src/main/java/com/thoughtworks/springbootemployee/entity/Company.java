@@ -54,4 +54,8 @@ public class Company {
         this.name = name;
         this.employees = employees;
     }
+
+    public Company(String name) {
+        this.name = name;
+    }
 }

@@ -98,4 +98,18 @@ public class CompanyIntegrationTest {
         Company newCompany1 = companyRepository.findAll().stream().findFirst().get();
         assertEquals("oli",newCompany1.getName());
     }
+    @Test
+    void should_return_status_200_when_companies_given_4_companies_unpage_false() throws Exception {
+        tearDown();
+        add4CompanyToDb();
+        mockMvc.perform(get("/companies?unpaged=false"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("[0].name").value(2));
+    }
+    private void add4CompanyToDb(){
+        for (int i = 0; i < 4; i++) {
+            Company company = new Company(String.valueOf(i));
+            companyRepository.save(company);
+        }
+    }
 }
