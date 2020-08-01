@@ -80,7 +80,6 @@ public class EmployeeIntegrationTest {
                 company.getId() +
                 "\n" +
                 " }";
-
         mockMvc.perform(put("/employees/" + employee.getId()).contentType(MediaType.APPLICATION_JSON).content(employeeDto))
                 .andExpect(status().isAccepted());
     }
@@ -96,18 +95,21 @@ public class EmployeeIntegrationTest {
     @Test
     void should_return_status_200_when_employees_given_4_employee_unpage_false() throws Exception {
         tearDown();
-        for (int i = 0; i < 4; i++) {
-            Company company = new Company();
-            company.setName("ri");
-            companyRepository.save(company);
-            Employee employee = new Employee(String.valueOf(i), 12, "male", company);
-            employeeRepository.save(employee);
-        }
+        add4EmployeeToDb();
         mockMvc.perform(get("/employees?unpaged=false"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("[0].name").value(2));
     }
 
+    @Test
+    void should_return_4_employee_when_find_employees_by_page_given_4_employee_unpaged_true() throws Exception {
+        tearDown();
+        add4EmployeeToDb();
+        mockMvc.perform(get("/employees?unpaged=true"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("[0].name").value(0))
+                .andExpect(jsonPath("[3].name").value(3));
+    }
 
     @Test
     void should_not_contain_female_when_find_employee_by_gender_given_male() throws Exception {
@@ -129,5 +131,15 @@ public class EmployeeIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("name").value(employee.getName()))
                 .andExpect(jsonPath("id").value(employee.getId()));
+    }
+
+    private void add4EmployeeToDb(){
+        for (int i = 0; i < 4; i++) {
+            Company company = new Company();
+            company.setName("ri");
+            companyRepository.save(company);
+            Employee employee = new Employee(String.valueOf(i), 12, "male", company);
+            employeeRepository.save(employee);
+        }
     }
 }
