@@ -1,6 +1,7 @@
 package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.dto.EmployeeRequestDto;
+import com.thoughtworks.springbootemployee.dto.EmployeeResponseDto;
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.exception.NotFoundException;
@@ -112,7 +113,7 @@ public class EmployeeServiceTest {
         //when
         when(companyRepository.findById(any())).thenReturn(optionalCompany);
         when(employeeRepository.save(any())).thenReturn(employee);
-        Employee returnEmployee = employeeService.addEmployeeByDto(employeeRequestDto);
+        EmployeeResponseDto returnEmployee = employeeService.addEmployeeByDto(employeeRequestDto);
 
         //then
         assertEquals(employeeRequestDto.getName(), returnEmployee.getName());
@@ -134,7 +135,7 @@ public class EmployeeServiceTest {
         //when
         when(employeeRepository.findById(any())).thenReturn(optionalEmployee);
         when(employeeRepository.save(any())).thenReturn(employeeAfterSaved);
-        Employee returnEmployee = employeeService.updateEmployeeByDto(employeeRequestDto);
+        EmployeeResponseDto returnEmployee = employeeService.updateEmployeeByDto(employeeRequestDto);
 
         //then
         assertEquals(employeeRequestDto.getName(), returnEmployee.getName());
@@ -147,7 +148,7 @@ public class EmployeeServiceTest {
         Optional<Employee> optionalEmployee = Optional.empty();
         //when
         when(employeeRepository.findById(any())).thenReturn(optionalEmployee);
-        Throwable throwable = assertThrows(NotFoundException.class, ()->employeeService.updateEmployeeByDto(employeeRequestDto));
+        Throwable throwable = assertThrows(NotFoundException.class, () -> employeeService.updateEmployeeByDto(employeeRequestDto));
 
         //then
         assertEquals("not found", throwable.getMessage());

@@ -1,10 +1,9 @@
 package com.thoughtworks.springbootemployee.controller;
 
 import com.thoughtworks.springbootemployee.dto.EmployeeRequestDto;
+import com.thoughtworks.springbootemployee.dto.EmployeeResponseDto;
 import com.thoughtworks.springbootemployee.entity.Employee;
-import com.thoughtworks.springbootemployee.service.CompanyService;
 import com.thoughtworks.springbootemployee.service.EmployeeService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -24,15 +23,16 @@ public class EmployeeController {
     }
 
     @PostMapping()
-    public void addEmployee(@RequestBody @Valid EmployeeRequestDto employeeRequestDto) {
-        employeeService.addEmployeeByDto(employeeRequestDto);
+    @ResponseBody
+    public EmployeeResponseDto addEmployee(@RequestBody @Valid EmployeeRequestDto employeeRequestDto) {
+        return employeeService.addEmployeeByDto(employeeRequestDto);
     }
 
     @PutMapping("/{employeeId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void updateEmployee(@PathVariable Integer employeeId, @RequestBody Employee employee) {
+    public void updateEmployee(@PathVariable Integer employeeId, @RequestBody EmployeeRequestDto employee) {
         employee.setId(employeeId);
-        employeeService.updateEmployee(employee);
+        employeeService.updateEmployeeByDto(employee);
     }
 
     @DeleteMapping("/{employeeId}")

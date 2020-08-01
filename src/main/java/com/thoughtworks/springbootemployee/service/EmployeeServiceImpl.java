@@ -1,7 +1,7 @@
 package com.thoughtworks.springbootemployee.service;
 
-import com.fasterxml.jackson.databind.util.BeanUtil;
 import com.thoughtworks.springbootemployee.dto.EmployeeRequestDto;
+import com.thoughtworks.springbootemployee.dto.EmployeeResponseDto;
 import com.thoughtworks.springbootemployee.entity.Company;
 import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.exception.NotFoundException;
@@ -62,25 +62,29 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee addEmployeeByDto(EmployeeRequestDto employeeRequestDto) {
+    public EmployeeResponseDto addEmployeeByDto(EmployeeRequestDto employeeRequestDto) {
         Company company = companyRepository.findById(employeeRequestDto.getCompanyId()).get();
         Employee employee = new Employee();
-        BeanUtils.copyProperties(employeeRequestDto,employee);
+        BeanUtils.copyProperties(employeeRequestDto, employee);
         employee.setCompany(company);
-        return employeeRepository.save(employee);
+        EmployeeResponseDto employeeResponseDto = new EmployeeResponseDto();
+        BeanUtils.copyProperties(employeeRepository.save(employee), employeeResponseDto);
+        return employeeResponseDto;
     }
 
     @Override
-    public Employee updateEmployeeByDto(EmployeeRequestDto employeeRequestDto) {
+    public EmployeeResponseDto updateEmployeeByDto(EmployeeRequestDto employeeRequestDto) {
         Employee employee = employeeRepository.findById(employeeRequestDto.getId()).orElse(null);
-        if(Objects.isNull(employee)){
+        if (Objects.isNull(employee)) {
             throw new NotFoundException();
         }
-        if(!employee.getCompany().getId().equals(employeeRequestDto.getCompanyId())){
+        if (!employee.getCompany().getId().equals(employeeRequestDto.getCompanyId())) {
             Company company = companyRepository.findById(employeeRequestDto.getCompanyId()).get();
             employee.setCompany(company);
         }
-        BeanUtils.copyProperties(employeeRequestDto,employee);
-        return employeeRepository.save(employee);
+        BeanUtils.copyProperties(employeeRequestDto, employee);
+        EmployeeResponseDto employeeResponseDto = new EmployeeResponseDto();
+        BeanUtils.copyProperties(employeeRepository.save(employee), employeeResponseDto);
+        return employeeResponseDto;
     }
 }
