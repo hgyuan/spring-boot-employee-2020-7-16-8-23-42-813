@@ -108,6 +108,7 @@ public class EmployeeIntegrationTest {
                 .andExpect(jsonPath("[0].name").value(2));
     }
 
+
     @Test
     void should_not_contain_female_when_find_employee_by_gender_given_male() throws Exception {
         String result = mockMvc.perform(get("/employees?gender=male"))
@@ -119,5 +120,14 @@ public class EmployeeIntegrationTest {
         assertFalse(isContain);
         isContain = result.contains("male");
         assertTrue(isContain);
+    }
+
+    @Test
+    void should_return_employee_when_query_employee_by_id_given_employee_id() throws Exception {
+        Employee employee = employeeRepository.findAll().stream().findFirst().get();
+        mockMvc.perform(get("/employees/" + employee.getId()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("name").value(employee.getName()))
+                .andExpect(jsonPath("id").value(employee.getId()));
     }
 }
