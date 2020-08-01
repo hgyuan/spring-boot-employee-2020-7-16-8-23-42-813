@@ -103,12 +103,12 @@ public class EmployeeServiceTest {
 
     @Test
     void should_return_employee_when_add_employee_by_employee_dto_given_employee_request_dto_company() {
-       //given
-        EmployeeRequestDto employeeRequestDto=new EmployeeRequestDto("olivia",10,"female",1);
-        Company company=new Company();
+        //given
+        EmployeeRequestDto employeeRequestDto = new EmployeeRequestDto("olivia", 10, "female", 1);
+        Company company = new Company();
         company.setId(employeeRequestDto.getCompanyId());
-        Employee employee=new Employee("olivia",10,"female",company);
-        Optional<Company> optionalCompany= Optional.of(company);
+        Employee employee = new Employee("olivia", 10, "female", company);
+        Optional<Company> optionalCompany = Optional.of(company);
 
         //when
         when(companyRepository.findById(any())).thenReturn(optionalCompany);
@@ -116,19 +116,19 @@ public class EmployeeServiceTest {
         Employee returnEmployee = employeeService.addEmployeeByDto(employeeRequestDto);
 
         //then
-        assertEquals(employeeRequestDto.getName(),returnEmployee.getName());
+        assertEquals(employeeRequestDto.getName(), returnEmployee.getName());
     }
 
     @Test
     void should_return_employee_when_update_employee_by_employee_dto_given_employee_request_dto_company() {
         //given
-        EmployeeRequestDto employeeRequestDto=new EmployeeRequestDto("olivia",10,"female",1);
+        EmployeeRequestDto employeeRequestDto = new EmployeeRequestDto("olivia", 10, "female", 1);
         employeeRequestDto.setId(1);
-        Company company=new Company();
+        Company company = new Company();
         company.setId(employeeRequestDto.getCompanyId());
-        Employee employeeBeforeSave=new Employee("olivia1111",10,"female",company);
+        Employee employeeBeforeSave = new Employee("olivia1111", 10, "female", company);
         employeeBeforeSave.setId(1);
-        Employee employeeAfterSaved=new Employee("olivia",10,"female",company);
+        Employee employeeAfterSaved = new Employee("olivia", 10, "female", company);
         employeeAfterSaved.setId(1);
         Optional<Employee> optionalEmployee = Optional.of(employeeBeforeSave);
 
@@ -138,6 +138,6 @@ public class EmployeeServiceTest {
         Employee returnEmployee = employeeService.updateEmployeeByDto(employeeRequestDto);
 
         //then
-        assertEquals(employeeRequestDto.getName(),returnEmployee.getName());
+        assertEquals(employeeRequestDto.getName(), returnEmployee.getName());
     }
 }

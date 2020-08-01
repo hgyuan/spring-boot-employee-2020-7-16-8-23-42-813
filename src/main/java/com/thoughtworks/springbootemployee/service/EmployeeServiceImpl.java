@@ -66,12 +66,17 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeRequestDto,employee);
         employee.setCompany(company);
-        Employee returnEmployee = employeeRepository.save(employee);
-        return returnEmployee;
+        return employeeRepository.save(employee);
     }
 
     @Override
     public Employee updateEmployeeByDto(EmployeeRequestDto employeeRequestDto) {
-        return null;
+        Employee employee = employeeRepository.findById(employeeRequestDto.getId()).get();
+        if(!employee.getCompany().getId().equals(employeeRequestDto.getCompanyId())){
+            Company company = companyRepository.findById(employeeRequestDto.getCompanyId()).get();
+            employee.setCompany(company);
+        }
+        BeanUtils.copyProperties(employeeRequestDto,employee);
+        return employeeRepository.save(employee);
     }
 }
