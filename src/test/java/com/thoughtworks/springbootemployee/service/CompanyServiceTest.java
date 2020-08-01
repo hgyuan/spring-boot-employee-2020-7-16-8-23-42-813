@@ -1,6 +1,10 @@
 package com.thoughtworks.springbootemployee.service;
 
+import com.thoughtworks.springbootemployee.dto.CompanyRequestDto;
+import com.thoughtworks.springbootemployee.dto.CompanyResponseDto;
+import com.thoughtworks.springbootemployee.dto.EmployeeRequestDto;
 import com.thoughtworks.springbootemployee.entity.Company;
+import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.exception.NotFoundException;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import org.junit.jupiter.api.Test;
@@ -10,10 +14,13 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -60,5 +67,20 @@ public class CompanyServiceTest {
         Company returnCompany = companyService.queryCompanyById(id);
         //then
         assertEquals(id, returnCompany.getId());
+    }
+    @Test
+    void should_return_company_response_when_add_company_by_company_dto_given_company_request() {
+        //given
+        CompanyRequestDto companyRequestDto=new CompanyRequestDto("olivia");
+        CompanyResponseDto companyResponseDto = new CompanyResponseDto();
+        companyRequestDto.setName("olivia");
+        Company company = new Company();
+        company.setName("olivia");
+        //when
+        when(companyRepository.save(any())).thenReturn(company);
+        CompanyResponseDto returnCompany;
+        returnCompany = companyService.addCompanyByDto(companyRequestDto);
+        //then
+        assertEquals(companyRequestDto.getName(),returnCompany.getName());
     }
 }
