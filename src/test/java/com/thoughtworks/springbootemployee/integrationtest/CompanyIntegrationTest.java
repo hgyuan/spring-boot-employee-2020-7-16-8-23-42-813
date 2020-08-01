@@ -55,4 +55,10 @@ public class CompanyIntegrationTest {
         mockMvc.perform(get("/companies/1"))
                 .andExpect(status().isNotFound());
     }
+
+    @Test
+    void should_return_not_found_when_get_employees_given_company_id_1() throws Exception {
+        mockMvc.perform(get("/companies/1/employees"))
+                .andExpect(status().isNotFound());
+    }
 }
