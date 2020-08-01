@@ -87,4 +87,15 @@ public class CompanyIntegrationTest {
                 .andExpect(status().isOk());
         assertEquals(Optional.empty(), companyRepository.findById(company.getId()));
     }
+    @Test
+    void should_return_status_200_when_update_company_given_newCompany() throws Exception {
+        Company company = companyRepository.findAll().stream().findFirst().get();
+        String newCompany = "{\n" +
+                "    \"name\": \"oli\"\n" +
+                "}";
+        mockMvc.perform(put("/companies/" + company.getId()).contentType(MediaType.APPLICATION_JSON).content(newCompany))
+                .andExpect(status().isOk());
+        Company newCompany1 = companyRepository.findAll().stream().findFirst().get();
+        assertEquals("oli",newCompany1.getName());
+    }
 }
