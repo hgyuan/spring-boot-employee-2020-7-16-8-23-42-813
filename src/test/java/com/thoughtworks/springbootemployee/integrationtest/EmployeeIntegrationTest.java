@@ -81,7 +81,8 @@ public class EmployeeIntegrationTest {
                 "\n" +
                 " }";
         mockMvc.perform(put("/employees/" + employee.getId()).contentType(MediaType.APPLICATION_JSON).content(employeeDto))
-                .andExpect(status().isAccepted());
+                .andExpect(status().isAccepted())
+                .andExpect(jsonPath("name").value("chengcheng111"));
     }
 
     @Test
