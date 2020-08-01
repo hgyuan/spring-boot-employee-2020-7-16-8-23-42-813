@@ -111,8 +111,8 @@ public class EmployeeServiceTest {
         Optional<Company> optionalCompany= Optional.of(company);
 
         //when
-        when(companyRepository.findById(employeeRequestDto.getCompanyId())).thenReturn(optionalCompany);
-        when(employeeRepository.save(employee)).thenReturn(employee);
+        when(companyRepository.findById(any())).thenReturn(optionalCompany);
+        when(employeeRepository.save(any())).thenReturn(employee);
         Employee returnEmployee = employeeService.addEmployeeByDto(employeeRequestDto);
 
         //then
