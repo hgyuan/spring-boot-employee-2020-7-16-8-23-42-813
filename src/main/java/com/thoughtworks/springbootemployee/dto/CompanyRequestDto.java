@@ -14,6 +14,9 @@ public class CompanyRequestDto {
         this.name = name;
     }
 
+    public CompanyRequestDto() {
+    }
+
     public Integer getId() {
         return id;
     }

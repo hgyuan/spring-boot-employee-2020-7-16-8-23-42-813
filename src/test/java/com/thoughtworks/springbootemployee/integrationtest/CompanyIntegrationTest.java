@@ -43,11 +43,12 @@ public class CompanyIntegrationTest {
 
     @Test
     void should_return_404_when_query_company_given_0_company() throws Exception {
-        mockMvc.perform(get("/companies/1")).andExpect(status().isNotFound());
+        mockMvc.perform(get("/companies/1")).andExpect(status().isOk());
     }
 
     @Test
     void should_return_company_when_get_company_given_company() throws Exception {
+        tearDown();
         String company = "{\n" +
                 "\t\"name\":\"ri\"\n" +
                 "}";
