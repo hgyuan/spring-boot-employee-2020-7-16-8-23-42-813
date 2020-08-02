@@ -1,13 +1,20 @@
 package com.thoughtworks.springbootemployee.dto;
 
 
+import com.thoughtworks.springbootemployee.validator.EnumValue;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 public class EmployeeRequestDto {
     private Integer id;
     @NotBlank
     private String name;
+    @Min(value = 0)
+    @Max(value = 150)
     private Integer age;
+    @EnumValue(strValues = {"female","male"})
     private String gender;
     private Integer companyId;
 

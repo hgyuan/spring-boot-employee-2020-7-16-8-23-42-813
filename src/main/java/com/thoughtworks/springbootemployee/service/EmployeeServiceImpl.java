@@ -7,6 +7,7 @@ import com.thoughtworks.springbootemployee.entity.Employee;
 import com.thoughtworks.springbootemployee.exception.NotFoundException;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
+import com.thoughtworks.springbootemployee.util.EmployeeUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -67,9 +68,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeRequestDto, employee);
         employee.setCompany(company);
-        EmployeeResponseDto employeeResponseDto = new EmployeeResponseDto();
-        BeanUtils.copyProperties(employeeRepository.save(employee), employeeResponseDto);
-        return employeeResponseDto;
+        BeanUtils.copyProperties(employeeRequestDto, employee);
+        return EmployeeUtil.castToEmployeeResponseDto(employeeRepository.save(employee));
     }
 
     @Override
@@ -83,8 +83,6 @@ public class EmployeeServiceImpl implements EmployeeService {
             employee.setCompany(company);
         }
         BeanUtils.copyProperties(employeeRequestDto, employee);
-        EmployeeResponseDto employeeResponseDto = new EmployeeResponseDto();
-        BeanUtils.copyProperties(employeeRepository.save(employee), employeeResponseDto);
-        return employeeResponseDto;
+        return EmployeeUtil.castToEmployeeResponseDto(employeeRepository.save(employee));
     }
 }

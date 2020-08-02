@@ -26,7 +26,7 @@ public class ExceptionHandlerController {
     public List<String> validRequestParamsException(MethodArgumentNotValidException exception){
         return exception.getBindingResult()
                 .getFieldErrors()
-                .stream().map(fieldError -> fieldError.getField()+": "+fieldError.getCode())
+                .stream().map(fieldError -> fieldError.getField()+": "+fieldError.getDefaultMessage())
                 .collect(Collectors.toList());
     }
 }
